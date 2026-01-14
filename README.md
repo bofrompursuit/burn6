@@ -1,25 +1,10 @@
-# Camp Notion Integration (FORGE)
+# Camp (FORGE)
 
-This project adds a small Notion API integration for the "Preparation" flow.
+This project represents the FORGE camp landing site. The Preparation action now opens the Notion page directly in a new tab.
 
-Quick start
+Quick notes
 
-1. Install dependencies:
+- The Preparation button links directly to: `https://www.notion.so/Welcome-to-Notion-2e83bc82f50780eba66ec6acac7e17e2?t=new` (opens in a new tab).
+- A previous Notion API proxy that fetched blocks server-side has been removed from the repository in favor of the simple direct link.
 
-   npm install
-
-2. Create an integration in Notion and share the target page with the integration (see https://developers.notion.com/docs).
-
-3. Copy `.env.template` to `.env` and set `NOTION_TOKEN` to your integration's secret.
-
-4. Start the server (it will serve `index.html` at the same origin):
-
-   npm start
-
-5. Open http://localhost:3000 in your browser and click the "Open Preparation (Notion)" button.
-
-Notes
-
-- The server exposes `/api/notion?pageId=PAGE_ID` which fetches the Notion page's blocks and returns JSON. The client-side code in `index.html` renders basic block types (paragraphs, headings, lists, images).
-- For production, do not expose your Notion token in client-side code. Keep it in server environment variables.
-- This implementation fetches only the first page of blocks (page_size=100). For long pages you'd want to page through children using the Notion API's pagination.
+If you'd like the server-based integration restored (to render Notion inside the site), I can re-add it, implement richer rendering, or deploy a proxy for production.

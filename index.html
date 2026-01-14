@@ -378,6 +378,23 @@
             transform: translateY(-3px) scale(1.05);
         }
 
+        /* Notion link icon + text */
+        .action-btn .tool-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            color: #fff;
+            margin-right: 8px;
+            transition: transform 0.25s ease;
+        }
+        .action-btn .tool-text {
+            text-transform: none;
+            letter-spacing: 0.5px;
+        }
+        .action-btn:hover .tool-icon { transform: translateY(-3px) scale(1.05); }
+
         /* Principles Section */
         .principles-grid {
             display: grid;
@@ -660,7 +677,7 @@
                 <span class="blob-icon">🎯</span>
                 <h3 class="blob-title">Preparation</h3>
                 <p class="blob-description">Plan, organize, and coordinate all pre-playa activities</p>
-                <a href="#" id="preparation-btn" data-notion-page-id="2e83bc82f50780eba66ec6acac7e17e2" class="action-btn"><span class="tool-emoji">📝</span>Open Preparation (Notion)</a>
+                <a href="https://www.notion.so/Welcome-to-Notion-2e83bc82f50780eba66ec6acac7e17e2?t=new" class="action-btn"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="20" height="20" aria-hidden="true"><rect x="3" y="3" width="14" height="18" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M7 7h6M7 11h6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="tool-text">Open Preparation — Notion Guide</span></a>
             </div>
 
             <div class="arrow arrow-1"></div>
@@ -809,112 +826,6 @@
         <p style="color: #6d6d6d; font-size: 0.9rem;">Peace · Love · Unity · Respect</p>
     </div>
 
-    <!-- Notion Modal -->
-    <div id="notion-modal" class="notion-modal" aria-hidden="true">
-        <div class="notion-modal-content">
-            <button id="notion-modal-close" class="notion-modal-close">✖</button>
-            <div id="notion-modal-body" class="notion-modal-body">Loading...</div>
-        </div>
-    </div>
-    <style>
-        /* Notion modal styles */
-        .notion-modal {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.45);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            padding: 20px;
-            transition: opacity 0.2s ease;
-            visibility: hidden;
-            opacity: 0;
-        }
-        .notion-modal[aria-hidden="false"] { visibility: visible; opacity: 1; }
-        .notion-modal-content {
-            background: #fff;
-            max-width: 900px;
-            width: 100%;
-            max-height: 80vh;
-            overflow: auto;
-            border-radius: 12px;
-            padding: 28px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-            position: relative;
-        }
-        .notion-modal-close {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            background: transparent;
-            border: none;
-            font-size: 1.1rem;
-            cursor: pointer;
-            padding: 6px;
-        }
-        .notion-modal-body p { line-height: 1.6; color:#333 }
-        .notion-modal-body h1, .notion-modal-body h2, .notion-modal-body h3 { margin: 12px 0 }
-        .notion-modal-body ul { margin: 8px 0 16px 1.25rem }
-        .notion-modal-body img { max-width:100%; height:auto }
-    </style>
-
-    <script>
-    // Simple client-side Notion fetch & render (calls server proxy at /api/notion)
-    document.addEventListener('DOMContentLoaded', () => {
-        const prepBtn = document.getElementById('preparation-btn');
-        const modal = document.getElementById('notion-modal');
-        const modalBody = document.getElementById('notion-modal-body');
-        const closeBtn = document.getElementById('notion-modal-close');
-
-        async function fetchNotion(pageId){
-            modalBody.innerHTML = '<p>Loading…</p>';
-            modal.setAttribute('aria-hidden','false');
-            try{
-                const res = await fetch(`/api/notion?pageId=${pageId}`);
-                if(!res.ok) throw new Error('Network response not ok');
-                const json = await res.json();
-                const blocks = json.blocks || [];
-                modalBody.innerHTML = renderBlocks(blocks);
-            } catch(err){
-                modalBody.innerHTML = `<p style="color:red">Error fetching Notion: ${err.message}</p>`;
-            }
-        }
-
-        function renderBlocks(blocks){
-            let html = '';
-            for(const b of blocks){
-                const t = b.type;
-                if(t === 'paragraph'){
-                    html += `<p>${getText(b.paragraph)}</p>`;
-                } else if(t.startsWith('heading')){
-                    const lvl = t.split('_')[1] || '1';
-                    html += `<h${lvl}>${getText(b[t])}</h${lvl}>`;
-                } else if(t === 'bulleted_list_item'){
-                    html += `<li>${getText(b.bulleted_list_item)}</li>`;
-                } else if(t === 'numbered_list_item'){
-                    html += `<li>${getText(b.numbered_list_item)}</li>`;
-                } else if(t === 'image' && b.image && b.image.type === 'external'){
-                    html += `<img src="${b.image.external.url}" alt="" style="max-width:100%"/>`;
-                }
-            }
-            if(html.includes('<li>')){
-                html = html.replace(/((?:<li>[\s\S]*?<\/li>)+)/g, (m)=>`<ul>${m}</ul>`);
-            }
-            return html;
-        }
-
-        function getText(obj){
-            if(!obj || !obj.rich_text) return '';
-            return obj.rich_text.map(rt => rt.plain_text).join('');
-        }
-
-        if(prepBtn){
-            prepBtn.addEventListener('click', (e)=>{ e.preventDefault(); const pid = prepBtn.dataset.notionPageId; fetchNotion(pid); });
-        }
-        closeBtn.addEventListener('click', ()=>{ modal.setAttribute('aria-hidden','true'); modalBody.innerHTML=''; });
-        modal.addEventListener('click',(e)=>{ if(e.target === modal) modal.setAttribute('aria-hidden','true'); });
-    });
-    </script>
+    <!-- Notion integration simplified: Preparation now opens Notion directly in a new tab -->
 </body>
 </html>
