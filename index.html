@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FORGE - Burning Man Camp</title>
+    <title>FORGE - Camp</title>
     <style>
         * {
             margin: 0;
@@ -646,7 +646,7 @@
     <div class="hero">
         <div class="hero-content">
             <h1 class="camp-name">FORGE</h1>
-            <p class="tagline">Burning Man Framework & Automation</p>
+            <p class="tagline">Camp Framework & Automation</p>
             <a href="https://discord.com/app" target="_blank" class="discord-btn">🎮 Join Our Discord</a>
         </div>
     </div>
@@ -660,7 +660,7 @@
                 <span class="blob-icon">🎯</span>
                 <h3 class="blob-title">Preparation</h3>
                 <p class="blob-description">Plan, organize, and coordinate all pre-playa activities</p>
-                <a href="https://notion.so" target="_blank" class="action-btn"><span class="tool-emoji">📝</span>Open Notion</a>
+                <a href="#" id="preparation-btn" data-notion-page-id="2e83bc82f50780eba66ec6acac7e17e2" class="action-btn"><span class="tool-emoji">📝</span>Open Preparation (Notion)</a>
             </div>
 
             <div class="arrow arrow-1"></div>
@@ -676,7 +676,7 @@
 
             <div class="blob-card">
                 <span class="blob-icon">🔥</span>
-                <h3 class="blob-title">THE BURN</h3>
+                <h3 class="blob-title">THE CAMP</h3>
                 <p class="blob-description">Live the experience and engage with the community</p>
                 <a href="https://chat.openai.com" target="_blank" class="action-btn"><span class="tool-emoji">💬</span>Launch ChatGPT</a>
             </div>
@@ -800,7 +800,7 @@
     <div class="volunteer-section">
         <div class="volunteer-content">
             <h3>🙌 Volunteering Opportunities</h3>
-            <p>Join the community that makes <strong>THE BURN</strong> possible. From gate greeters to temple guardians, every role contributes to the magic of <strong>THE BURN</strong>.</p>
+            <p>Join the community that makes <strong>THE CAMP</strong> possible. From gate greeters to temple guardians, every role contributes to the magic of <strong>THE CAMP</strong>.</p>
             <a href="https://burningman.org/event/volunteering/" target="_blank" class="action-btn">Explore Volunteer Roles</a>
         </div>
     </div>
@@ -808,5 +808,113 @@
     <div class="container" style="text-align: center; padding-top: 0;">
         <p style="color: #6d6d6d; font-size: 0.9rem;">Peace · Love · Unity · Respect</p>
     </div>
+
+    <!-- Notion Modal -->
+    <div id="notion-modal" class="notion-modal" aria-hidden="true">
+        <div class="notion-modal-content">
+            <button id="notion-modal-close" class="notion-modal-close">✖</button>
+            <div id="notion-modal-body" class="notion-modal-body">Loading...</div>
+        </div>
+    </div>
+    <style>
+        /* Notion modal styles */
+        .notion-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.45);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            padding: 20px;
+            transition: opacity 0.2s ease;
+            visibility: hidden;
+            opacity: 0;
+        }
+        .notion-modal[aria-hidden="false"] { visibility: visible; opacity: 1; }
+        .notion-modal-content {
+            background: #fff;
+            max-width: 900px;
+            width: 100%;
+            max-height: 80vh;
+            overflow: auto;
+            border-radius: 12px;
+            padding: 28px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        .notion-modal-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: transparent;
+            border: none;
+            font-size: 1.1rem;
+            cursor: pointer;
+            padding: 6px;
+        }
+        .notion-modal-body p { line-height: 1.6; color:#333 }
+        .notion-modal-body h1, .notion-modal-body h2, .notion-modal-body h3 { margin: 12px 0 }
+        .notion-modal-body ul { margin: 8px 0 16px 1.25rem }
+        .notion-modal-body img { max-width:100%; height:auto }
+    </style>
+
+    <script>
+    // Simple client-side Notion fetch & render (calls server proxy at /api/notion)
+    document.addEventListener('DOMContentLoaded', () => {
+        const prepBtn = document.getElementById('preparation-btn');
+        const modal = document.getElementById('notion-modal');
+        const modalBody = document.getElementById('notion-modal-body');
+        const closeBtn = document.getElementById('notion-modal-close');
+
+        async function fetchNotion(pageId){
+            modalBody.innerHTML = '<p>Loading…</p>';
+            modal.setAttribute('aria-hidden','false');
+            try{
+                const res = await fetch(`/api/notion?pageId=${pageId}`);
+                if(!res.ok) throw new Error('Network response not ok');
+                const json = await res.json();
+                const blocks = json.blocks || [];
+                modalBody.innerHTML = renderBlocks(blocks);
+            } catch(err){
+                modalBody.innerHTML = `<p style="color:red">Error fetching Notion: ${err.message}</p>`;
+            }
+        }
+
+        function renderBlocks(blocks){
+            let html = '';
+            for(const b of blocks){
+                const t = b.type;
+                if(t === 'paragraph'){
+                    html += `<p>${getText(b.paragraph)}</p>`;
+                } else if(t.startsWith('heading')){
+                    const lvl = t.split('_')[1] || '1';
+                    html += `<h${lvl}>${getText(b[t])}</h${lvl}>`;
+                } else if(t === 'bulleted_list_item'){
+                    html += `<li>${getText(b.bulleted_list_item)}</li>`;
+                } else if(t === 'numbered_list_item'){
+                    html += `<li>${getText(b.numbered_list_item)}</li>`;
+                } else if(t === 'image' && b.image && b.image.type === 'external'){
+                    html += `<img src="${b.image.external.url}" alt="" style="max-width:100%"/>`;
+                }
+            }
+            if(html.includes('<li>')){
+                html = html.replace(/((?:<li>[\s\S]*?<\/li>)+)/g, (m)=>`<ul>${m}</ul>`);
+            }
+            return html;
+        }
+
+        function getText(obj){
+            if(!obj || !obj.rich_text) return '';
+            return obj.rich_text.map(rt => rt.plain_text).join('');
+        }
+
+        if(prepBtn){
+            prepBtn.addEventListener('click', (e)=>{ e.preventDefault(); const pid = prepBtn.dataset.notionPageId; fetchNotion(pid); });
+        }
+        closeBtn.addEventListener('click', ()=>{ modal.setAttribute('aria-hidden','true'); modalBody.innerHTML=''; });
+        modal.addEventListener('click',(e)=>{ if(e.target === modal) modal.setAttribute('aria-hidden','true'); });
+    });
+    </script>
 </body>
 </html>
