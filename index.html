@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FORGE - Burning Man Camp</title>
+    <title>FORGE - Camp</title>
     <style>
         * {
             margin: 0;
@@ -496,6 +496,23 @@
         .action-btn:hover .tool-emoji {
             transform: translateY(-3px) scale(1.05);
         }
+
+        /* Notion link icon + text */
+        .action-btn .tool-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            color: #fff;
+            margin-right: 8px;
+            transition: transform 0.25s ease;
+        }
+        .action-btn .tool-text {
+            text-transform: none;
+            letter-spacing: 0.5px;
+        }
+        .action-btn:hover .tool-icon { transform: translateY(-3px) scale(1.05); }
 
         /* Principles Section */
         .principles-grid {
@@ -1068,7 +1085,7 @@
     <div class="hero">
         <div class="hero-content">
             <h1 class="camp-name">FORGE</h1>
-            <p class="tagline">Burning Man Framework & Automation</p>
+            <p class="tagline">Camp Framework & Automation</p>
             <a href="https://discord.com/app" target="_blank" class="discord-btn">🎮 Join Our Discord</a>
         </div>
     </div>
@@ -1120,7 +1137,7 @@
                 <span class="blob-icon">🎯</span>
                 <h3 class="blob-title">Preparation</h3>
                 <p class="blob-description">Plan, organize, and coordinate all pre-playa activities</p>
-                <a href="https://notion.so" target="_blank" class="action-btn"><span class="tool-emoji">📝</span>Open Notion</a>
+                <a href="https://www.notion.so/Welcome-to-Notion-2e83bc82f50780eba66ec6acac7e17e2?t=new" class="action-btn"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="20" height="20" aria-hidden="true"><rect x="3" y="3" width="14" height="18" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M7 7h6M7 11h6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="tool-text">Open Preparation — Notion Guide</span></a>
             </div>
 
             <div class="arrow arrow-1"></div>
@@ -1136,7 +1153,7 @@
 
             <div class="blob-card">
                 <span class="blob-icon">🔥</span>
-                <h3 class="blob-title">THE BURN</h3>
+                <h3 class="blob-title">THE CAMP</h3>
                 <p class="blob-description">Live the experience and engage with the community</p>
                 <a href="https://chat.openai.com" target="_blank" class="action-btn"><span class="tool-emoji">💬</span>Launch ChatGPT</a>
             </div>
@@ -1260,181 +1277,13 @@
     <div class="volunteer-section" id="volunteer">
         <div class="volunteer-content">
             <h3>🙌 Volunteering Opportunities</h3>
-            <p>Join the community that makes <strong>THE BURN</strong> possible. From gate greeters to temple guardians, every role contributes to the magic of <strong>THE BURN</strong>.</p>
+            <p>Join the community that makes <strong>THE CAMP</strong> possible. From gate greeters to temple guardians, every role contributes to the magic of <strong>THE CAMP</strong>.</p>
             <a href="https://burningman.org/event/volunteering/" target="_blank" class="action-btn">Explore Volunteer Roles</a>
         </div>
     </div>
 
-    <!-- Testimonials Section -->
-    <div class="container">
-        <h2 class="section-title">💬 Community Voices</h2>
-        <div class="testimonial-grid">
-            <div class="testimonial-card">
-                <div class="testimonial-text">"FORGE brought us together and made the entire camp experience seamless. Can't wait for next year!"</div>
-                <div class="testimonial-author">— Alex M., Camp Coordinator</div>
-            </div>
-            <div class="testimonial-card">
-                <div class="testimonial-text">"The workflow system is incredible. Everything feels organized and everyone stays on the same page."</div>
-                <div class="testimonial-author">— Jordan T., Volunteer Lead</div>
-            </div>
-            <div class="testimonial-card">
-                <div class="testimonial-text">"FORGE embodies the 10 Principles perfectly. It's not just a tool, it's a philosophy in action."</div>
-                <div class="testimonial-author">— Casey R., Principle Advocate</div>
-            </div>
-        </div>
-
-        <!-- FAQ Section -->
-        <h2 class="section-title" id="faq">❓ Frequently Asked Questions</h2>
-        <div class="faq-container">
-            <div class="faq-item">
-                <div class="faq-question">
-                    <span>What is FORGE?</span>
-                    <span class="faq-toggle">⬇</span>
-                </div>
-                <div class="faq-answer">
-                    FORGE is a comprehensive framework and automation system designed to streamline Burning Man camp planning and execution. It integrates preparation, building, participation, and cleanup phases with the 10 Principles at its core.
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question">
-                    <span>How do I join the community?</span>
-                    <span class="faq-toggle">⬇</span>
-                </div>
-                <div class="faq-answer">
-                    Simply click the "Join Our Discord" button at the top of the page. Discord is where we collaborate, share updates, and build relationships with fellow campers and volunteers.
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question">
-                    <span>What do I need to bring to Burning Man?</span>
-                    <span class="faq-toggle">⬇</span>
-                </div>
-                <div class="faq-answer">
-                    Check out our "What to Bring" guide in the Survival Guide section. It covers essentials like water, sun protection, camping gear, and other items necessary for a safe and comfortable playa experience.
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question">
-                    <span>Can I volunteer?</span>
-                    <span class="faq-toggle">⬇</span>
-                </div>
-                <div class="faq-answer">
-                    Absolutely! We have many volunteer roles available. Check the "Volunteering Opportunities" section to learn about different ways you can contribute to making our camp experience amazing.
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question">
-                    <span>What are the 10 Principles?</span>
-                    <span class="faq-toggle">⬇</span>
-                </div>
-                <div class="faq-answer">
-                    The 10 Principles are the philosophical foundation of Burning Man: Radical Inclusion, Gifting, Decommodification, Radical Self-Reliance, Radical Self-Expression, Communal Effort, Civic Responsibility, Leave No Trace, Participation, and Immediacy. Everything we do honors these values.
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question">
-                    <span>How is FORGE organized?</span>
-                    <span class="faq-toggle">⬇</span>
-                </div>
-                <div class="faq-answer">
-                    FORGE operates in four phases: Preparation (planning and organizing), Build (construction and setup), The Burn (the event itself), and Clean Up (restoration and reflection). Each phase has dedicated tools and resources in our workflow system.
-                </div>
-            </div>
-        </div>
+    <div class="container" style="text-align: center; padding-top: 0;">
+        <p style="color: #6d6d6d; font-size: 0.9rem;">Peace · Love · Unity · Respect</p>
     </div>
-
-    <!-- Footer -->
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-section">
-                <h4>Quick Links</h4>
-                <ul class="footer-links">
-                    <li><a href="#workflow">Workflow</a></li>
-                    <li><a href="#principles">Principles</a></li>
-                    <li><a href="#survival">Survival Guide</a></li>
-                    <li><a href="#volunteer">Volunteer</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h4>Resources</h4>
-                <ul class="footer-links">
-                    <li><a href="https://survival.burningman.org" target="_blank">Official Survival Guide</a></li>
-                    <li><a href="https://burningman.org/event/black-rock-city-guide/" target="_blank">Black Rock City Map</a></li>
-                    <li><a href="https://burningman.org/event/participate/" target="_blank">How to Participate</a></li>
-                    <li><a href="https://burningman.org" target="_blank">Burning Man Official</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h4>Community</h4>
-                <ul class="footer-links">
-                    <li><a href="https://discord.com/app" target="_blank">Discord Channel</a></li>
-                    <li><a href="#volunteer">Volunteer Opportunities</a></li>
-                    <li><a href="#faq">FAQ</a></li>
-                    <li><a href="#" target="_blank">Contact Us</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>© 2026 FORGE - Burning Man Camp. Built with ❤️ and 🔥 | Peace · Love · Unity · Respect</p>
-        </div>
-    </footer>
-
-    <!-- Back to Top Button -->
-    <button id="back-to-top" aria-label="Back to top">↑</button>
-
-    <script>
-        // Back to Top Button
-        const backToTopBtn = document.getElementById('back-to-top');
-
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) {
-                backToTopBtn.classList.add('show');
-            } else {
-                backToTopBtn.classList.remove('show');
-            }
-        });
-
-        backToTopBtn.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-
-        // FAQ Accordion
-        const faqItems = document.querySelectorAll('.faq-item');
-
-        faqItems.forEach(item => {
-            const question = item.querySelector('.faq-question');
-            question.addEventListener('click', () => {
-                const isActive = item.classList.contains('active');
-                
-                // Close all other items
-                faqItems.forEach(otherItem => {
-                    otherItem.classList.remove('active');
-                });
-
-                // Toggle current item
-                if (!isActive) {
-                    item.classList.add('active');
-                }
-            });
-        });
-
-        // Smooth scroll for nav links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                const href = this.getAttribute('href');
-                if (href !== '#' && document.querySelector(href)) {
-                    e.preventDefault();
-                    const element = document.querySelector(href);
-                    const offsetTop = element.offsetTop - 70;
-                    window.scrollTo({ top: offsetTop, behavior: 'smooth' });
-                }
-            });
-        });
-    </script>
 </body>
 </html>
